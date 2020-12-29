@@ -21,8 +21,8 @@ spring:
   mvc:
     locale: ro
   mail:
-    host: email-smtp.us-east-1.amazonaws.com
-    port: 25 #  25, 465 or 587
+    host: email-smtp.eu-west-1.amazonaws.com
+    port: 587 #  25, 465 or 587
     # This is Different from AWS_ACCESS_ID and AWS_SECRET_KEY.  Required to generate AWS SES production credentials: https://docs.aws.amazon.com/ses/latest/DeveloperGuide/smtp-credentials.html
     username: ${AWS_SES_USERNAME}
     password:  ${AWS_SES_PASSWORD}
@@ -39,9 +39,10 @@ spring:
 app:
   jwtSecret: ORy9HWgKoZPAs50ECKw0
   jwtExpirationInMs: 1728000000   # two days expiration time, can be extended
-  signupurl: 'http://localhost:4200/authentication/sign-up'
   email:
-    sender: noreply@legalconsultation.ro # temporary value. change this to a real email that is validated in SES : https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-email-addresses-procedure.html
+    documenturl: ${DOMAIN_URL:https://staging.legiinlucru.ro}/documents #TODO: change this once the app is deployed and a domain exists
+    signupurl: ${DOMAIN_URL:https://staging.legiinlucru.ro}/register
+    sender: ${AWS_SES_EMAIL}
 storage:
   aws:
     region: ${AWS_REGION}
